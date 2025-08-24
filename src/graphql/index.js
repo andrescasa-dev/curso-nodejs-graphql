@@ -5,13 +5,21 @@ const express = require('express');
 
 const typeDefs = `
   type Query {
-    helloWorld: String
+    helloWorld: String!
+    getPersona(name: String, age: Int): String
+    getPuppies(row: [Int]): [[String]]
   }
 `
 
 const resolvers = {
   Query: {
-    helloWorld: ()=> "hola mundo"
+    helloWorld: ()=> "Hola mundo",
+    getPersona: (_, {name, age})=> `i'm ${name}, i'm ${age} years old`,
+    getPuppies: (_, {row})=>{
+      return row.map((number) =>{
+        return Array.from({length: number}, (_, idx)=>`puppy${idx + 1}`)
+      })
+    }
   }
 }
 
