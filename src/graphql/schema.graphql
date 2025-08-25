@@ -16,11 +16,22 @@ input CreateProductDTO {
   categoryId: Int!
 }
 
+input UpdateProductDTO {
+  id: ID!
+  name: String
+  price: Float
+  description: String
+  image: String
+  categoryId: Int
+}
+
 type Query {
   products: [Product!]!
   product(id: Int!): Product
 }
 
 type Mutation {
-  createProduct(product: CreateProductDTO): Product
+  createProduct(product: CreateProductDTO!): Product
+  updateProduct(product: UpdateProductDTO!): Product
+  deleteProduct(id: Int!): Int
 }
