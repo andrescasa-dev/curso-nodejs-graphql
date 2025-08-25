@@ -1,0 +1,26 @@
+type Product {
+  id: ID!
+  name: String!
+  image: String!
+  description: String!
+  price: Float!
+  createdAt: String!
+  categoryId: Int!
+}
+
+input CreateProductDTO {
+  name: String!
+  price: Float!
+  description: String!
+  image: String!
+  categoryId: Int!
+}
+
+type Query {
+  products: [Product!]!
+  product(id: Int!): Product
+}
+
+type Mutation {
+  createProduct(product: CreateProductDTO): Product
+}
