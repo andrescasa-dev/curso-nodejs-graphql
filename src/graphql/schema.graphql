@@ -30,8 +30,24 @@ type Query {
   product(id: Int!): Product
 }
 
+input LoginDto {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   createProduct(product: CreateProductDTO!): Product
   updateProduct(product: UpdateProductDTO!): Product
   deleteProduct(id: Int!): Int
+  login(user: LoginDto): AuthResponse
+}
+
+type User {
+  id: Int!
+  email: String!
+}
+
+type AuthResponse {
+  user: User
+  tokenSession: String
 }

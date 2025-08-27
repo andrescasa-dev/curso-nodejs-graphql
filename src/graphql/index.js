@@ -3,12 +3,13 @@ const { expressMiddleware } = require('@as-integrations/express4');
 const { loadFiles } = require('@graphql-tools/load-files');
 const cors = require('cors');
 const express = require('express');
-const resolvers = require('./resolvers')
+const resolvers = require('./resolvers');
+const { buildContext } = require('graphql-passport');
 
 const useApolloServer = async (app)=>{
   const apolloServer = new ApolloServer({
     typeDefs: await loadFiles('./src/**/*.graphql'),
-    resolvers
+    resolvers,
   })
 
   await apolloServer.start()
@@ -16,7 +17,9 @@ const useApolloServer = async (app)=>{
     '/graphql',
     cors(),
     express.json(),
-    expressMiddleware(apolloServer),
+    expressMiddleware(apolloServer, {
+      context: async ({ req, res }) => buildContext({ req, res })
+    }),
   )
 }
 
