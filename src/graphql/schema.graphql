@@ -1,3 +1,9 @@
+type Category {
+  id: String!
+  name: String!
+  image: String
+}
+
 type Product {
   id: ID!
   name: String!
@@ -28,6 +34,7 @@ input UpdateProductDTO {
 type Query {
   products: [Product!]!
   product(id: Int!): Product
+  categories: [Category!]!
 }
 
 input LoginDto {
@@ -36,13 +43,8 @@ input LoginDto {
 }
 
 input CategoryDTO {
-  id: ID!
   name: String!
-}
-
-type Category {
-  id: ID!
-  name: String!
+  image: String
 }
 
 type Mutation {

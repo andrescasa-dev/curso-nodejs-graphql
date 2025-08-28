@@ -5,13 +5,14 @@ const {
   updateProduct,
   deleteProduct,
 } = require('./product.resolvers');
-const { createCategory } = require('./category.resolvers');
+const { getCategories, createCategory } = require('./category.resolvers');
 const { login } = require('./users.resolvers');
 
 const resolvers = {
   Query: {
     products: getProducts,
     product: getProduct,
+    categories: getCategories,
   },
   Mutation: {
     createProduct,

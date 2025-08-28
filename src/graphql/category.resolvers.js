@@ -1,9 +1,16 @@
-const boom = require('@hapi/boom');
+const CategoryService = require('../services/category.service');
+const { authPipe } = require('../utils/auth/graphql');
+const service = new CategoryService();
 
-const createCategory = async (_, args, context) => {
-  const { user } = await context.authenticate('jwt', { session: false });
-  if (!user) throw boom.unauthorized();
-  return { id: '1', name: 'test' };
+const getCategories = async () => {
+  const categories = await service.find();
+  return categories;
 };
 
-module.exports = { createCategory };
+const createCategory = async (_, { category }, context) => {
+  await authPipe(context, 'admin');
+  const newCat = await service.create(category);
+  return newCat;
+};
+
+module.exports = { getCategories, createCategory };
