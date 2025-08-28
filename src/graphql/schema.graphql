@@ -35,11 +35,22 @@ input LoginDto {
   password: String!
 }
 
+input CategoryDTO {
+  id: ID!
+  name: String!
+}
+
+type Category {
+  id: ID!
+  name: String!
+}
+
 type Mutation {
   createProduct(product: CreateProductDTO!): Product
   updateProduct(product: UpdateProductDTO!): Product
   deleteProduct(id: Int!): Int
   login(user: LoginDto): AuthResponse
+  createCategory(category: CategoryDTO): Category
 }
 
 type User {
